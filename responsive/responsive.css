@@ -1,0 +1,83 @@
+/*style sheet for index.html*/
+
+@media screen
+	and (min-device-width: 1601px)
+	{
+		.homer
+		{
+			width: 312.5px;
+			height: 312.5px;
+			background:url(homer.jpg) 0 0px;
+		}
+	}
+
+@media screen
+	and (min-device-width: 1401px)
+	and (max-device-width: 1600px)
+	{
+		.homer
+		{
+			width: 312.5px;
+			height: 312.5px;
+			background:url(homer.jpg) 312.5 0px;
+		}
+	}
+
+@media screen
+	and (min-device-width: 1201px)
+	and (max-device-width: 1400px)
+	{
+		.homer
+		{
+			width: 312.5px;
+			height: 312.5px;
+			background:url(homer.jpg) 0 -312.5px;
+		}
+	}
+
+@media screen
+	and (min-device-width: 1001px)
+	and (max-device-width: 1200px)
+	{
+		.homer
+		{
+			width: 312.5px;
+			height: 312.5px;
+			background:url(homer.jpg) 312.5 -312.5px;
+		}
+	}
+
+@media screen
+	and (min-device-width: 801px)
+	and (max-device-width: 1000px)
+	{
+		.homer
+		{
+			width: 312.5px;
+			height: 312.5px;
+			background:url(homer.jpg) 0 -312.5px;
+		}
+	}
+
+@media screen
+	and (min-device-width: 601px)
+	and (max-device-width: 800px)
+	{
+		.homer
+		{
+			width: 312.5px;
+			height: 312.5px;
+			background:url(homer.jpg) 312.5 0px;
+		}
+	}
+
+@media screen
+	and (max-device-width: 600px)
+	{
+		.homer
+		{
+			width: 312.5px;
+			height: 312.5px;
+			background:url(homer.jpg) 0 0px;
+		}
+	}
