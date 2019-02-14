@@ -22,7 +22,9 @@ Acknowledgements: I referenced the online tutorials linked on the lab
                   in CSS and for setting different rules for different
                   device widths.
 
-Issues: None so far. I will update this section if any arise in testing.
+Issues: I initially used "max-device-width" instead of "max-width"
+        in my CSS, which of course did not work with resizing the
+        browser window. A little experimentation fixed the issue.
         I would ideally have liked to add CSS rules for more devices,
         but the resolutions provided for the lab only seem to make sense
         for a laptop screen and I do not want to deviate from the specs
