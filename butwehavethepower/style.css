@@ -1,0 +1,25 @@
+/*Style sheet for index.html*/
+
+body{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+h1{
+    font-family: "Copperplate", "Copperplate Gothic Light", fantasy;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+h3{
+    font-size: 22px;
+}
+
+.pow{
+    font-size: 24px;
+    color: gold;
+    font-weight: bold;
+}
