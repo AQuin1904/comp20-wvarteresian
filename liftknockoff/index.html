@@ -72,10 +72,11 @@
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
                     vehicles = JSON.parse(request.responseText);
+                    vehicles = vehicles.vehicles;
                     console.log(vehicles);
                     console.log(vehicles.length);
                     for (count = 0; count < vehicles.length; count++) {
-                        console.log("Entered loop 1");
+                        console.log("Entered loop " + count);
                         var pos = new google.maps.LatLng(vehicles[count].lat, vehicles[count].lng);
                         
                         var mark;
@@ -98,9 +99,7 @@
         function setDistance() {
             var minDistance = 9999999999;
             var minWiener = 9999999999;
-            console.log("Entered function");
             for (count = 0; count < vehicles.length; count++) {
-                console.log("entered loop");
                 var dist = haversine(vehicles[count].lat, vehicles[count].lng);
                 if (dist < minDistance) {
                     minDistance = dist;
@@ -108,7 +107,6 @@
                 if(vehicles[count].username == "WIENERMOBILE" && dist < minWiener) {
                     minWiener = dist;
                 }
-                console.log("dist is " + dist);
             }
             if (minDistance != 9999999999) {
                 iwContent += "<p>Nearest vehicle is " + minDistance + " miles away.</p>";
@@ -131,7 +129,7 @@
             var dLng = x2.toRad();
             var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
                 Math.cos(Vlat.toRad()) * Math.cos(myLat.toRad()) *
-                Math.sin(dLng/2) * Math.sin(dLon/2);
+                Math.sin(dLng/2) * Math.sin(dLng/2);
             var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             var d = R * c;
             d /= 1.60934;
