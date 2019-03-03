@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Comp 20 Assignment 2: The Private Car Service</title>
+    <meta name="viewport" content="initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9sQaGQMUn1TEZG3C11LjRlpQAppS4WGk"></script>
+    <script>
+        var myLat = 0;
+        var myLng = 0;
+        var me = new google.maps.LatLng(myLat, myLng);
+
+        var myOptions = {
+            zoom: 13,
+            center: me,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map;
+        var marker;
+
+        function init() {
+            map = new google.maps.Map(document.getElementById("map"), myOptions);
+            getMyLocation();
+        }
+
+        function getMyLocation() {
+            if (navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(function(position){
+                    myLat = position.coords.latitude;
+                    myLng = position.coords.longitude;
+                    renderMap();
+                })
+            }
+            else{
+                alert("Your browser does not support geolocation.");
+            }
+        }
+
+        function renderMap() {
+            me = new google.maps.LatLng(myLat, myLng);
+            map.panTo(me);
+            marker = new google.maps.Marker({
+                position: me,
+                title: "Here I am!"
+            });
+            marker.setMap(map);
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <div id="map"></div>
+</body>
+
+</html>
