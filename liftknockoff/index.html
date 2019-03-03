@@ -20,6 +20,7 @@
 
         var map;
         var marker;
+        var vehicles;
 
         function init() {
             map = new google.maps.Map(document.getElementById("map"), myOptions);
@@ -47,6 +48,38 @@
                 title: "Here I am!"
             });
             marker.setMap(map);
+            loadData();
+        }
+
+        function loadData() {
+            var request = new XMLHttpRequest();
+            var url = "https://hans-moleman.herokuapp.com/rides";
+            var param = "username=6VhhvcGj&lat=" + myLat + "&lng=" + myLng;
+            request.open("POST", url, true);
+
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    vehicles = JSON.parse(request.responseText);
+                    console.log(vehicles);
+                    for (count = 0; count < vehicles.length; count++) {
+                        var pos = new google.maps.LatLng(vehicles[count].lat, vehicles[count].lng);
+                        
+                        var mark;
+                        if (vehicles[count].username = "WIENERMOBILE") mark = "wienermobile.png";
+                        else mark = "car.png";
+
+                        var vmarker = new google.maps.Marker({
+                            position: pos,
+                            icon: mark,
+                            title: vehicles[count].username
+                        })
+                        vmarker.setMap(map);
+                    }                    
+                }
+            }
+            request.send(param);
         }
     </script>
 </head>
