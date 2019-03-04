@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Comp 20 Assignment 2: The Private Car Service</title>
@@ -13,7 +13,7 @@
         var me = new google.maps.LatLng(myLat, myLng);
 
         var myOptions = {
-            zoom: 13,
+            zoom: 10,
             center: me,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
@@ -21,6 +21,7 @@
         var map;
         var marker;
         var vehicles;
+        var serviceMode;
 
         var iwContent = "<h3>Username: 6VhhvcGj</h3>";
 
@@ -72,16 +73,23 @@
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 200) {
                     vehicles = JSON.parse(request.responseText);
-                    vehicles = vehicles.vehicles;
+                    if (typeof vehicles.vehicles != "undefined") {
+                        vehicles = vehicles.vehicles;
+                        serviceMode = "vehicle";
+                    }
+                    else if (typeof vehicles.passengers != "undefined") {
+                        vehicles = vehicles.passengers;
+                        serviceMode = "passenger";
+                    }
                     console.log(vehicles);
                     console.log(vehicles.length);
                     for (count = 0; count < vehicles.length; count++) {
-                        console.log("Entered loop " + count);
                         var pos = new google.maps.LatLng(vehicles[count].lat, vehicles[count].lng);
                         
                         var mark;
-                        if (vehicles[count].username = "WIENERMOBILE") mark = "wienermobile.png";
-                        else mark = "car.png";
+                        if (vehicles[count].username == "WEINERMOBILE") mark = "weinermobile.png";
+                        else if (serviceMode == "vehicle") mark = "car.png";
+                        else mark = "passenger.png";
                         
                         var vmarker = new google.maps.Marker({
                             position: pos,
@@ -104,15 +112,15 @@
                 if (dist < minDistance) {
                     minDistance = dist;
                 }
-                if(vehicles[count].username == "WIENERMOBILE" && dist < minWiener) {
+                if(vehicles[count].username == "WEINERMOBILE" && dist < minWiener) {
                     minWiener = dist;
                 }
             }
             if (minDistance != 9999999999) {
-                iwContent += "<p>Nearest vehicle is " + minDistance + " miles away.</p>";
+                iwContent += "<p>Nearest " + serviceMode + " is " + minDistance.toFixed(5) + " miles away.</p>";
             }
             if (minWiener != 9999999999) {
-                iwContent += "<p>Nearest wienermobile is " + minWiener + " miles away.</p>";
+                iwContent += "<p>Nearest weinermobile is " + minWiener.toFixed(5) + " miles away.</p>";
             }
         }
 
