@@ -26,6 +26,8 @@ passenger.png: An icon for passengers. Found via image search.
 
 weinermobile.png: An icon for the weinermobile. Taken from course website.
 
+pin.png: An icon for the user. Taken from https://icons8.com/icons/set/maps.
+
 Acknowledgments: I referenced https://stackoverflow.com/questions/
                  14560999/using-the-haversine-formula-in-javascript
                  for a Javascript implementation of the Haversine
