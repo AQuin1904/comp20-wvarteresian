@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+
+<html lang='en'>
+
+<head>
+    <title>Comp 20 Assignment 4: Security and Privacy Assessment of Private Car Service</title>
+    <meta name="viewport" content="initial-scale=1.0" />
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <h2>Introduction</h2>
+    <p>The product is a private car service that allows passengers to locate nearby vehicles and drivers to locate nearby passengers.</p>
+    <p>My assignment is to evaluate potential security risks in the implementation of all parts of this service and to recommend solutions to these issues.</p>
+
+    <h2>Methodology</h2>
+    <p></p>
+
+    <h2>Abstract of Findings</h2>
+    <p>Minor typos when searching for passengers can cause the entire server to crash, rendering all aspects of the service unusable until manually restarted by an administrator.</p>
+    <p>It is possible for anyone to view information, including GPS coordinates and usernames, about any and all passengers who have used the service.</p>
+    <p></p>
+
+    <h2>Issues Found</h2>
+    <h3>Issue: Bug / Poor Coding Practice</h3>
+    <p>Location: index.js (/passenger.json)</p>
+    <p>Severity: High. Causes a server crash, rendering all routes and pages unusable until a manual report is performed by the server owner.</p>
+    <p>Description: Calling the GET route "/passenger.json" with any query string that does not contain a properly spelled "username" key causes the server to crash (likely due to a type error). This issue appears to occur because a variable is set equal to the "username" property of the query without first checking that this property exists. I discovered this issue when I accidentally used the query string "?username$ne=" while testing for other issues and vulnerabilities. I later confirmed that this was the cause of the crash by asking the server owner to examine the Heroku logs.</p>
+    <img src='crash.png' alt='server crash'>
+    <p>Resolution: Before setting the variable toFind equal to request.query.username (on line 96 of index.js), add an if statement to confirm that this property exists (e.g. if(request.query.username != undefined) {...}, or if(request.query.hasOwnProperty('username')) {...}).</p>
+
+    <h3>Issue: Data Leak</h3>
+    <p>Location: index.js (/passenger.json)</p>
+    <p>Severity: High. Exposes confidential user data with high potential for misuse, including exact locations, which can be used for stalking, ensuring that a user is away before committing a burglary, etc., and usernames, which can be used to flag down vehicles under false pretenses.</p>
+    <p>Description: Calling the GET route "/passenger.json" with the query string "?username[$ne]=" or "username[$gt]=" displays all passenger data stored in the database.</p>
+    <img src='dataLeak.png' alt='data leak 1'>
+    <img src='dataLeak2.png' alt='data leak 2'>
+    <p>Resolution: Query strings should be validated to remove or escape all operators used by the database before queries are made.<br>
+    Specifically, I recommend calling Validator's blacklist method on the variable "toFind" (defined on line 96 of index.js) to remove the characters "[," "]," and "$" in addition to calling the normal escape method (also absent at this time) before querying the database on line 102.</p>
+
+    <h3></h3>
+
+    <h2>Conclusion</h2>
+    <p></p>
+
+    <h2>References</h2>
+    <p></p>
+</body>
+
+</html>
